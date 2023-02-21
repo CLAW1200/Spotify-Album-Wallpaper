@@ -31,8 +31,8 @@ function displayAlbumCollage(albums) {
     const album = albums[i].album;
     const img = document.createElement("img");
     img.src = album.images[0].url;
-    img.alt = "album.name";
-    img.title = "brhy";
+    img.alt = album.name;
+    img.title = album.name;
     img.style.center = `${Math.random() * (window.innerWidth - 0)}px`;
     img.style.animationDuration = `${1}s`;
     albumCollage.appendChild(img);
