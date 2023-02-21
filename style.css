@@ -39,3 +39,20 @@ body {
   margin: 10px;
   border-radius: 10px;
 }
+
+/* animate the image to move around the screen*/
+#collage-container img:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -33,8 +33,8 @@ function displayAlbumCollage(albums) {
     img.src = album.images[0].url;
     img.alt = album.name;
     img.title = album.name;
-    img.style.center = `${Math.random() * (window.innerWidth - 0)}px`;
-    img.style.animationDuration = `${1}s`;
+    img.style.center = 0.5;
+    
     albumCollage.appendChild(img);
     //if click on image, it will open spotify
     img.addEventListener("click", () => {
@@ -44,19 +44,27 @@ function displayAlbumCollage(albums) {
   }
 }
 
-// Fetch all the user's albums from the Spotify API
-async function getAlbums() {
+// Fetch 10 of the user's liked songs
+function getAlbums() {
   const accessToken = getAccessToken();
-  if (accessToken) {
-    const response = await fetch(albumsEndpoint, {
-      headers: {
-        "Authorization": `Bearer ${accessToken}`
-      }
+  const headers = new Headers({
+    "Authorization": `Bearer ${accessToken}`
+  });
+  const queryParams = new URLSearchParams({
+    "limit": 50
+  });
+  const url = `${albumsEndpoint}?${queryParams}`;
+  const request = new Request(url, {
+    method: "GET",
+    headers: headers
+  });
+  fetch(request)
+    .then(response => response.json())
+    .then(data => {
+      displayAlbumCollage(data.items);
     });
-    const data = await response.json();
-    displayAlbumCollage(data.items);
-  }
 }
+
 
 
 // Prompt the user to log in with their Spotify account
